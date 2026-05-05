@@ -1,0 +1,556 @@
+/* ============================================================
+   SKYCHECK — style.css
+   Created by NyG | Dark-first design system
+   ============================================================ */
+
+
+/* ── DESIGN TOKENS ────────────────────────────────────────── */
+:root {
+  /* Colors — dark mode defaults */
+  --color-bg:              #0f1117;
+  --color-surface:         #1a1d27;
+  --color-surface-2:       #21253300;
+  --color-border:          rgba(255, 255, 255, 0.08);
+  --color-text:            #e8eaf0;
+  --color-text-muted:      #8b909e;
+  --color-text-faint:      #4a4f5e;
+  --color-primary:         #4f9cf9;
+  --color-primary-hover:   #3b8aed;
+  --color-primary-active:  #2674d8;
+  --color-error:           #f06a6a;
+  --color-error-bg:        rgba(240, 106, 106, 0.10);
+  --color-skeleton-base:   #1e2233;
+  --color-skeleton-shine:  #262b3d;
+
+  /* Typography */
+  --font-display: 'Cabinet Grotesk', 'Helvetica Neue', sans-serif;
+  --font-body:    'Satoshi', 'Helvetica Neue', sans-serif;
+
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.4rem  + 2vw,    3rem);
+
+  /* Spacing — 4px base unit */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radius */
+  --radius-sm:   0.375rem;
+  --radius-md:   0.625rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+  /* Transitions */
+  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --content-max: 960px;
+}
+
+
+/* ── LIGHT MODE OVERRIDES ─────────────────────────────────── */
+[data-theme="light"] {
+  --color-bg:              #f4f6fb;
+  --color-surface:         #ffffff;
+  --color-surface-2:       #eef1f8;
+  --color-border:          rgba(0, 0, 0, 0.08);
+  --color-text:            #1a1d27;
+  --color-text-muted:      #5a6070;
+  --color-text-faint:      #adb3c0;
+  --color-primary:         #1a6fd4;
+  --color-primary-hover:   #1560c0;
+  --color-primary-active:  #1050a8;
+  --color-error:           #c0392b;
+  --color-error-bg:        rgba(192, 57, 43, 0.08);
+  --color-skeleton-base:   #e2e6ef;
+  --color-skeleton-shine:  #f0f3f9;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ── BASE RESET ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body), sans-serif;
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+img, svg { display: block; max-width: 100%; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduced motion — disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ── SKIP LINK ────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-120%);
+  transition: transform var(--transition);
+  z-index: 100;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+
+/* ── HEADER ───────────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Logo lockup */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Header button cluster */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Shared style for icon-only header buttons */
+.geo-btn,
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition: background var(--transition), color var(--transition);
+}
+
+.geo-btn:hover,
+.theme-toggle:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+/* Geo button — subtle blue tint to distinguish from theme toggle */
+.geo-btn {
+  color: var(--color-primary);
+}
+
+.geo-btn:hover {
+  background: rgba(79, 156, 249, 0.10);
+  color: var(--color-primary-hover);
+}
+
+/* Geo button loading state — injected by app.js */
+.geo-btn.loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+/* ── MAIN LAYOUT ──────────────────────────────────────────── */
+.main {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-10) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+
+/* ── SEARCH SECTION ───────────────────────────────────────── */
+.search-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+}
+
+.search-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+.search-subtitle {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 44ch;
+}
+
+/* Search form wrapper */
+.search-form {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Visually hidden label — stays accessible to screen readers */
+.search-label {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+/* Input + button side-by-side */
+.search-input-wrapper {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.search-input {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-input::placeholder { color: var(--color-text-faint); }
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 156, 249, 0.15);
+}
+
+/* Primary search button */
+.search-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  transition: background var(--transition), transform var(--transition);
+  min-height: 44px;
+}
+
+.search-btn:hover  { background: var(--color-primary-hover); }
+.search-btn:active {
+  background: var(--color-primary-active);
+  transform: scale(0.98);
+}
+
+/* Usage hint below input */
+.search-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-align: left;
+}
+
+
+/* ── ERROR MESSAGE ────────────────────────────────────────── */
+.search-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  color: var(--color-error);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-align: left;
+}
+
+/* Hide when empty — JS removes hidden attribute to show */
+.search-error[hidden] { display: none; }
+
+
+/* ── WEATHER SECTION ──────────────────────────────────────── */
+.weather-section { width: 100%; }
+.weather-section[hidden] { display: none; }
+
+
+/* ── SKELETON SHIMMER ─────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.skeleton {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Shared shimmer style for all skeleton children */
+.skeleton-heading,
+.skeleton-text,
+.skeleton-text.short {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-base) 25%,
+    var(--color-skeleton-shine) 50%,
+    var(--color-skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-heading { height: 1.75rem; width: 45%; }
+.skeleton-text    { height: 1rem; width: 100%; }
+.skeleton-text.short { width: 60%; }
+
+
+/* ── WEATHER CARD ─────────────────────────────────────────── */
+.weather-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+
+.weather-card[hidden] { display: none; }
+
+/* Card header — city and country */
+.weather-card-header {
+  padding: var(--space-6) var(--space-8) 0;
+}
+
+.weather-city {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.weather-country {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* Card body — icon, temp, description, detail grid */
+.weather-card-body {
+  padding: var(--space-6) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Main weather display: icon + temp + description */
+.weather-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.weather-icon {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.weather-temp-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.weather-temp {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.weather-description {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  text-transform: capitalize;
+}
+
+/* Detail grid: 2 columns always */
+.weather-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3) var(--space-4);
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.detail-item dt {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.detail-item dd {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Card footer — last updated timestamp */
+.weather-card-footer {
+  padding: var(--space-3) var(--space-8) var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.weather-updated {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  padding: var(--space-8) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  color: var(--color-text-faint);
+}
+
+.site-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.site-footer a:hover { color: var(--color-primary-hover); }
+
+
+/* ── RESPONSIVE — 768px+ ──────────────────────────────────── */
+@media (min-width: 768px) {
+
+  /* Two-column layout: search left, result right */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: var(--space-12);
+    padding: var(--space-16) var(--space-8);
+  }
+
+  /* Search section left-aligned on desktop */
+  .search-section {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .search-hint { text-align: left; }
+}
+
+
+/* ── RESPONSIVE — 1024px+ ─────────────────────────────────── */
+@media (min-width: 1024px) {
+  .main { padding: var(--space-16) var(--space-12); }
+}
