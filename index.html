@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Previsão do tempo em tempo real" />
+  <title>NyG Weather</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@700,800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Skip link: acessibilidade para navegação por teclado -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <!-- Logo SVG inline: sem dependência externa, funciona em qualquer resolução -->
+    <div class="logo" aria-label="NyG Weather">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="2"/>
+        <path d="M8 20 Q12 10 16 14 Q20 18 24 12" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" fill="none"/>
+        <circle cx="16" cy="9" r="2.5" fill="currentColor"/>
+      </svg>
+      <span class="logo-text">NyG Weather</span>
+    </div>
+
+    <!-- Toggle dark/light mode -->
+    <button
+      class="theme-toggle"
+      data-theme-toggle
+      aria-label="Alternar para modo claro"
+      title="Alternar tema"
+    >
+      <!-- Ícone injetado via JS -->
+    </button>
+  </header>
+
+  <!-- ====== MAIN ====== -->
+  <main id="main-content" class="main">
+
+    <!-- Seção de busca: ponto de entrada do app -->
+    <section class="search-section" aria-label="Buscar cidade">
+      <h1 class="search-title">Previsão do Tempo</h1>
+      <p class="search-subtitle">Digite o nome de uma cidade para ver as condições atuais.</p>
+
+      <!--
+        FORMULÁRIO DE BUSCA
+        - role="search" → semântica correta para busca
+        - novalidate → validação via JS (mais flexível)
+        - autocomplete="off" → evita sugestões que confundem o UX
+      -->
+      <form
+        id="search-form"
+        class="search-form"
+        role="search"
+        novalidate
+        autocomplete="off"
+      >
+        <label for="city-input" class="search-label">
+          Nome da cidade
+        </label>
+
+        <div class="search-input-wrapper">
+          <!-- Input principal -->
+          <input
+            type="search"
+            id="city-input"
+            name="city"
+            class="search-input"
+            placeholder="Ex: São Paulo, London, Tokyo"
+            aria-required="true"
+            aria-describedby="search-hint search-error"
+            maxlength="100"
+            spellcheck="false"
+          />
+
+          <!-- Botão de submit -->
+          <button type="submit" class="search-btn" aria-label="Buscar clima">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+            <span>Buscar</span>
+          </button>
+        </div>
+
+        <!-- Dica de uso (acessível via aria-describedby) -->
+        <p id="search-hint" class="search-hint">
+          Você pode buscar por cidade ou "cidade, país" (ex: Paris, FR)
+        </p>
+
+        <!-- Área de erro — inicialmente vazia, preenchida pelo JS -->
+        <p
+          id="search-error"
+          class="search-error"
+          role="alert"
+          aria-live="polite"
+          hidden
+        ></p>
+      </form>
+    </section>
+
+    <!-- ====== ÁREA DE RESULTADO ====== -->
+    <!--
+      Inicialmente vazia. O app.js vai injetar os dados do clima aqui.
+      aria-live="polite" → leitor de tela anuncia quando o conteúdo muda.
+    -->
+    <section
+      id="weather-result"
+      class="weather-result"
+      aria-live="polite"
+      aria-label="Resultado do clima"
+      hidden
+    >
+      <!-- Preenchido dinamicamente pelo app.js -->
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer">
+    <p>
+      Dados fornecidos por
+      <a
+        href="https://openweathermap.org"
+        target="_blank"
+        rel="noopener noreferrer"
+      >OpenWeatherMap</a>
+    </p>
+  </footer>
+
+  <!-- Scripts ao final do body: DOM já carregado quando executam -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
