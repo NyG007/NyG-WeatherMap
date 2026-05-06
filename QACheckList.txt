@@ -1,0 +1,37 @@
+SKYCHECK — Final QA Checklist
+
+SEARCH FLOW
+  [ ] Search "London"           → card renders with all 6 fields populated
+  [ ] Search "São Paulo"        → accented characters work (encodeURIComponent)
+  [ ] Search "Tokyo, JP"        → city + country code correct
+  [ ] Submit empty input        → "Please enter a city name." appears
+  [ ] Search "xyzxyzxyz"        → "City not found." error appears
+  [ ] Invalid API key           → "Invalid API key." error appears
+  [ ] Network disabled          → network error message appears
+  [ ] Search after error        → error clears, new result renders correctly
+
+GEOLOCATION FLOW
+  [ ] Click geo-btn             → spinner shows, browser asks permission
+  [ ] Allow permission          → card renders with current city
+  [ ] Deny permission           → "Location access denied." + focus on input
+  [ ] Click geo-btn offline     → fetch error message appears
+  [ ] Rapid double-click        → button disabled during loading (no double request)
+
+THEME TOGGLE
+  [ ] Default load              → matches OS dark/light preference
+  [ ] Click toggle              → theme switches instantly
+  [ ] Toggle back               → returns to original theme
+  [ ] Icon updates              → sun ↔ moon swaps correctly
+  [ ] aria-label updates        → "Switch to light/dark mode" reflects state
+
+SKELETON / LOADING STATE
+  [ ] During any fetch          → skeleton shimmer visible
+  [ ] After success             → skeleton hidden, card visible
+  [ ] After error               → skeleton hidden, card hidden, error visible
+
+ACCESSIBILITY
+  [ ] Tab through page          → logical focus order (skip link → header → form → footer)
+  [ ] All buttons               → visible focus ring on keyboard nav
+  [ ] Weather icon              → alt text matches condition description
+  [ ] Error region              → screen reader announces error on change
+  [ ] geo-btn aria-label        → updates during loading and after
