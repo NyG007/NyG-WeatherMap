@@ -1,0 +1,24 @@
+SKYCHECK — Mobile QA 375px
+
+LAYOUT
+  [ ] No horizontal scroll at 375px
+  [ ] Header logo + buttons visible, no overflow
+  [ ] Search title wraps cleanly (no clipped text)
+  [ ] Search input + button stack or fit in single row
+  [ ] Weather card fills column width with padding
+
+TOUCH TARGETS
+  [ ] Search button     → min 44px height (check in DevTools box model)
+  [ ] geo-btn           → min 44×44px
+  [ ] theme-toggle      → min 44×44px
+
+FULL FLOW ON MOBILE
+  [ ] Type city → submit → skeleton → card renders
+  [ ] All detail grid items (4 cells) visible, no overflow
+  [ ] Updated timestamp visible in card footer
+  [ ] Error message readable, no text overflow
+
+FONT SIZES
+  [ ] Body text ≥ 16px (no iOS auto-zoom on input focus)
+  [ ] Input font-size ≥ 16px (prevents iOS zoom)
+  [ ] Detail grid labels readable (≥ 12px)
