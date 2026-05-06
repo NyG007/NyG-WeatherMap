@@ -554,3 +554,8 @@ button { cursor: pointer; background: none; border: none; }
 @media (min-width: 1024px) {
   .main { padding: var(--space-16) var(--space-12); }
 }
+
+/* Prevent i)S auto-zoom on input focus */
+@media (max-width: 758px) {
+  .search-input { font-size: 1rem; } /* must be ≥ 16px */
+}
